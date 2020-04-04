@@ -42,9 +42,7 @@ print("finishing fetch [",len(urls),"]data fetch")
 
 #---------
 for link in urls:
-	'''
-	try:
-	'''
+
 	print("--------------")
 		
 	link=urllib.parse.quote(link).replace('https%3A//','https://')#چون لینک یو آر ال ها به صورت فارسی بود باید یه صورت کد شده در بیاید 
@@ -106,12 +104,26 @@ for link in urls:
 	
 	image_string=""
 	for img in image_links:
-		image_string=image_string+img+"__"
-	
-	sql = "INSERT INTO data (id, title,images,special_info,discription,phone,url ) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-	val = (id,title,image_string,special_info,discription,Phone_number,link)
-	mycursor.execute(sql,val)
-	mydb.commit()
+		image_string=image_string+img+"__" # تمامی عکس ها را از آرایه داخل یک استرینگ میریزیم 
+	'''
+	با استفاده از کد زیر اطلاعات به دست آمده را در داخل دیتابیس دخیره میکنیم 
+
+	'''
+	try:
+		sql = "INSERT INTO data (id, title,images,special_info,discription,phone,url ) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+		val = (id,title,image_string,special_info,discription,Phone_number,link)
+		mycursor.execute(sql,val)
+		mydb.commit()
+	except mysql.connector.Error as e:
+		#if e.number == 1062:
+            #primary key dublicate 
+		print("Doublicate")
+		print(e.errno)
+			#pass
+		#else:
+		#	print(e)
+		#	raise
+
 
 		
 	
@@ -123,11 +135,7 @@ for link in urls:
 	
 	
 	
-	
-	
-	'''except:
-		print("Error")
-	'''	
+
 	
 	
 	
