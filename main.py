@@ -115,14 +115,14 @@ for link in urls:
 		mycursor.execute(sql,val)
 		mydb.commit()
 	except mysql.connector.Error as e:
-		#if e.number == 1062:
+		if e.errno == 1062:
             #primary key dublicate 
-		print("Doublicate")
-		print(e.errno)
-			#pass
-		#else:
-		#	print(e)
-		#	raise
+			print("Doublicate")
+			print(e.errno)
+			pass
+		else:
+			print(e)
+			raise
 
 
 		
