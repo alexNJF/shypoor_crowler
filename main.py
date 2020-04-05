@@ -38,6 +38,26 @@ def Set_db():
 		print (error)
 		print("--------------------------------\n\n\n")
 		quit()	
+
+
+def get_proxy():
+	'get proxy from api'
+
+	headers = {
+			'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'
+	}
+	r = requests.get("http://pubproxy.com/api/proxy", headers=headers)
+	_proxy =r.json()['data'][0]["ipPort"]
+	
+	
+	result={
+		'http':_proxy
+	}
+
+	
+	return result
+	
+
 #----------------------------------
 
 if __name__ == "__main__":
@@ -114,9 +134,10 @@ if __name__ == "__main__":
 			'Sec-Fetch-Dest':'empty',
 			'Upgrade-Insecure-Requests':'1'
 			}
-				
-			r = requests.get(description_url, headers=headers)
-				
+			#proxy=get_proxy() 
+			#print(proxy)	
+			#r = requests.get(description_url, headers=headers,proxies=proxy) #Proxy not work :(
+			r = requests.get(description_url, headers=headers)	
 			#soup = BeautifulSoup(r.json(),features="html.parser") 
 			#number=soup.strong.getText()
 			if (r.json()['success']=='True'):
