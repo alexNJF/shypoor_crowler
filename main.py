@@ -135,7 +135,8 @@ if __name__ == "__main__":
 			'Upgrade-Insecure-Requests':'1'
 			}
 			#proxy=get_proxy() 
-			#print(proxy)	
+			
+			#print(proxy)	  
 			#r = requests.get(description_url, headers=headers,proxies=proxy) #Proxy not work :(
 			r = requests.get(description_url, headers=headers)	
 			#soup = BeautifulSoup(r.json(),features="html.parser") 
